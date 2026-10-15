@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c1c2b">
+<title>ViWallet</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🎂%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ===== КОШЕЛЁК ===== -->
+  <section id="wallet" class="screen">
+    <div class="w-scroll">
+    <div class="w-top">
+      <div class="av">🎻</div>
+      <div class="acc">Vivaldi.sol<small>Аккаунт 1 · 0x16…1010</small></div>
+      <button class="ic" id="reset" aria-label="Настройки">⚙︎</button>
+    </div>
+    <div class="total" id="total">$0.00</div>
+    <div class="delta" id="delta"></div>
+
+    <div class="acts">
+      <button data-quip="Получать будешь 16.10 🎁|Принимаем только подарки и комплименты 💌|Входящий перевод: +1 год. Без возможности отмены"><svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></svg>Получить</button>
+      <button data-quip="Деньги любят тишину. И Vivamarket 😏|Отправлять деньги в день рождения? Не в этот раз 🙅|Отправить можно только Вову за тортом 🍰"><svg viewBox="0 0 24 24"><path d="M12 20V5M6 11l6-6 6 6"/></svg>Отправить</button>
+      <button data-quip="Зачем менять, если можно лудить?|Обмен петушка на ястреба - в разработке 🐓|Лучший своп: скучный вечер → вечеринка 🎉"><svg viewBox="0 0 24 24"><path d="M7 4 3 8l4 4M3 8h14M17 12l4 4-4 4M21 16H7"/></svg>Обмен</button>
+      <button data-quip="У тебя и так полно бабла 💸|Купить можно только торт. Остальное уже твоё 🎂|Карта отклонена: слишком много денег 🤑"><svg viewBox="0 0 24 24"><path d="M12 3v18M16.5 7H10a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6H7"/></svg>Купить</button>
+    </div>
+
+    <div id="fbBanner" class="banner gift hidden"><span>🎁</span><div><b>Подарок на день рождения</b><small>Бесплатная ставка <b>$16 100</b> на Vivamarket. Нажми, чтобы забрать</small></div></div>
+    <div id="bdayBanner" class="banner hidden"><span>🎂</span><div><b>С днём рождения, Вова!</b><small>Нажми, чтобы открыть поздравление</small></div></div>
+
+    <h4>Приложения</h4>
+    <button class="dapp" id="openMarket">
+      <div class="dl">V</div>
+      <div class="dn">Vivamarket<small>Рынки предсказаний · 🔥 в тренде</small></div>
+      <div class="go">›</div>
+    </button>
+    <button class="dapp" id="openEx">
+      <div class="dl x">◆</div>
+      <div class="dn">Vivance<small>Фьючерсы · плечо до x100 · лонг/шорт</small></div>
+      <div class="go">›</div>
+    </button>
+    <button class="dapp" id="openChat">
+      <div class="dl c">✳</div>
+      <div class="dn">Клавдия<small>ИИ-ассистент · ответит на всё</small></div>
+      <div class="go">›</div>
+    </button>
+    <button class="dapp" id="openGame">
+      <div class="dl g">🐓</div>
+      <div class="dn">ViJumpAss<small>Мини-игра · прыгай to the moon</small></div>
+      <div class="go">›</div>
+    </button>
+
+    <h4>Токены</h4>
+    <div id="tokens"></div>
+
+    </div>
+    <nav class="w-nav">
+      <button class="on" data-quip="Ты и так дома, Вива 🏠|Дом там, где кошелёк полон 💰|Главная страница - это ты сегодня 🎂"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Главная</button>
+      <button data-quip="📊 Аналитика: 100% портфеля - в лудке|Диверсификация? Это когда ставишь и на Yes, и на Yes 🤡|График твоей жизни: только вверх 📈"><svg viewBox="0 0 24 24"><path d="M5 20v-6M12 20V9M19 20V4"/></svg>Портфель</button>
+      <button data-quip="Своп «возраст → мудрость» временно недоступен 🧓|Обменять петушка на орла нельзя, проверено 🐓|Курс: 1 год жизни = 1 торт 🍰"><svg viewBox="0 0 24 24"><path d="M7 4 3 8l4 4M3 8h14M17 12l4 4-4 4M21 16H7"/></svg>Обмен</button>
+      <button data-quip="📜 История: купил на хаях, продал на лоях. Классика|Транзакции скрыты, чтобы тебе не было стыдно 🙈|Последняя операция: стал на год старше ✅"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>История</button>
+      <button data-quip="🔍 Ищем адекватные инвестиции… ничего не найдено|Лучший актив уже найден - это твоя жена 💍|Нашёлся только Вивальди. Подойдёт? 🎻"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>Поиск</button>
+    </nav>
+  </section>
+
+  <!-- ===== VIVAMARKET (внутри кошелька) ===== -->
+  <section id="market" class="screen">
+    <div class="bbar">
+      <button id="closeMarket" aria-label="Закрыть">✕</button>
+      <div class="url">🔒 vivamarket.com</div>
+      <button aria-label="Меню">⋯</button>
+    </div>
+    <div class="m-scroll">
+      <header class="m-head">
+        <div class="logo"><i>V</i>Vivamarket</div>
+        <div id="mAcc"></div>
+      </header>
+      <div class="tabs"><span class="on">🔥 Trending</span><span>🎂 День рождения</span><span>₿ Crypto</span><span>🎻 Вивальди</span><span>🍕 Вечеринка</span></div>
+      <main>
+        <div id="hero"></div>
+        <h3>Все рынки</h3>
+        <div id="list"></div>
+      </main>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА ТОКЕНА ===== -->
+  <section id="token" class="screen">
+    <div class="tk-bar">
+      <button data-back aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div id="tkName"></div>
+      <span></span>
+    </div>
+    <div class="m-scroll"><div id="tkBody"></div></div>
+  </section>
+
+  <!-- ===== КЛАВДИЯ (чат) ===== -->
+  <section id="chat" class="screen">
+    <div class="bbar">
+      <button data-cclose aria-label="Закрыть">✕</button>
+      <div class="url">🔒 klavdia.ai</div>
+      <button id="cNew" aria-label="Новый чат">✎</button>
+    </div>
+    <div class="c-head"><button class="c-model" data-quip="Других моделей нет. Klavdia Opus 16.10 - лучшая 🎂|Klavdia Haiku в отпуске до 17 октября 🏖️|Модель выбрана за тебя. Сегодня ты отдыхаешь, даже от выбора 😌">Klavdia Opus 16.10<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div>
+    <div class="m-scroll" id="cScroll">
+      <div class="c-hello" id="cHello">
+        <div class="c-star">✳</div>
+        <h2>Чем займёмся, Вова?</h2>
+        <div class="c-sugg">
+          <button data-sugg="Напиши мне код для работы">💻 Помоги с кодом</button>
+          <button data-sugg="Что сейчас купить из крипты?">📈 Что купить?</button>
+          <button data-sugg="Сколько мне лет?">🎂 Сколько мне лет?</button>
+          <button data-sugg="Как дела?">👋 Как дела?</button>
+        </div>
+      </div>
+      <div id="cList" class="c-list"></div>
+    </div>
+    <form class="c-input" id="cForm">
+      <textarea id="cText" rows="1" placeholder="Напиши Клавдии…" enterkeyhint="send"></textarea>
+      <button id="cSend" aria-label="Отправить" disabled><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+    </form>
+  </section>
+
+  <!-- ===== VIJUMPASS (игра) ===== -->
+  <section id="game" class="screen">
+    <div class="bbar">
+      <button data-gclose aria-label="Закрыть">✕</button>
+      <div class="url">🔒 vijumpass.game</div>
+      <button id="gPauseBtn" aria-label="Пауза"><svg viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+    </div>
+    <div class="g-wrap" id="gWrap">
+      <canvas id="gCv"></canvas>
+      <div class="g-hud">
+        <div class="g-score" id="gScore">0</div>
+        <div class="g-coins"><span class="b">₿ <b id="gBtc">0</b></span><span class="e">Ξ <b id="gEth">0</b></span></div>
+      </div>
+
+      <div class="g-ov" id="gStart">
+        <div class="g-title">ViJumpAss<br><span>to the Moon 🌕</span></div>
+        <canvas id="gHero" width="200" height="160"></canvas>
+        <ul class="g-rules">
+          <li>🟩 Прыгай по зелёным свечам</li>
+          <li>🟥 Красные свечи ломаются</li>
+          <li>🚀 Ракета = памп до небес</li>
+          <li>₿ Ξ Собирай монеты</li>
+          <li>👻 Ректы отбирают всё. Топчи их сверху!</li>
+        </ul>
+        <div class="g-help" id="gHelp">Тапай по левой или правой половине экрана</div>
+        <button class="g-btn" id="gPlay">Играть</button>
+        <button class="g-sub" id="gTilt">📱 Управление наклоном: выкл</button>
+        <div class="g-best">Рекорд: <b id="gBest">0</b> м</div>
+      </div>
+
+      <div class="g-ov hidden" id="gOver">
+        <div class="g-title" id="gOverT"></div>
+        <p class="g-msg" id="gOverS"></p>
+        <div class="g-res" id="gRes"></div>
+        <button class="g-btn" id="gAgain">Ещё раз</button>
+      </div>
+
+      <div class="g-ov hidden" id="gPaused">
+        <div class="g-title">Пауза</div>
+        <p class="g-msg">Петушок ждёт. Рынок - нет.</p>
+        <button class="g-btn" id="gResume">Продолжить</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VIVANCE (фьючерсы) ===== -->
+  <section id="exchange" class="screen">
+    <div class="bbar">
+      <button data-close aria-label="Закрыть">✕</button>
+      <div class="url">🔒 vivance.com</div>
+      <button aria-label="Меню">⋯</button>
+    </div>
+    <div class="m-scroll">
+      <header class="x-head">
+        <div class="x-logo">◆ VIVANCE <small>Futures</small></div>
+        <div class="x-bal">Доступно<b id="xBal"></b></div>
+      </header>
+      <div class="x-pairs" id="xPairs"></div>
+      <div class="x-price">
+        <div><div class="x-p" id="xP"></div><div class="x-c" id="xC"></div></div>
+        <div class="x-stats" id="xStats"></div>
+      </div>
+      <svg id="xChart" class="x-chart" viewBox="0 0 300 160" preserveAspectRatio="none"></svg>
+
+      <div class="x-box" id="xPos"></div>
+
+      <div class="x-box" id="xOrder">
+        <div class="x-lbl">Плечо</div>
+        <div class="x-lev" id="xLev"></div>
+        <label class="x-amt">Маржа<input id="xAmt" type="number" inputmode="decimal" min="0" placeholder="0 USDT"></label>
+        <div class="x-chips"><button data-xadd="1000">+1K</button><button data-xadd="10000">+10K</button><button data-xadd="50000">+50K</button><button data-xadd="max">Max</button></div>
+        <div class="x-size">Размер позиции <b id="xSize">$0.00</b></div>
+        <div class="x-btns"><button class="x-long" data-xside="long">Long ↑</button><button class="x-short" data-xside="short">Short ↓</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Бет-слип -->
+  <div id="sheetBg" class="bg hidden"></div>
+  <div id="sheet" class="sheet">
+    <div class="grab"></div>
+    <div class="s-q" id="sQ"></div>
+    <div class="side">
+      <button data-side="yes" id="sYes">Yes</button>
+      <button data-side="no" id="sNo">No</button>
+    </div>
+    <button class="fb hidden" id="sFb">🎁 Использовать фрибет <b id="sFbV"></b></button>
+    <label class="amt">Сумма<input id="sAmt" type="number" inputmode="decimal" min="0" placeholder="$0"></label>
+    <div class="chips">
+      <button data-add="100">+$100</button><button data-add="1000">+$1K</button><button data-add="10000">+$10K</button><button data-add="max">Max</button>
+    </div>
+    <div class="win">Выигрыш при победе <b id="sWin">$0.00</b></div>
+    <button class="cta" id="sGo">Сделать ставку</button>
+  </div>
+
+  <!-- Окно подписи кошелька -->
+  <div id="signBg" class="bg hidden"></div>
+  <div id="sign" class="sheet wsign">
+    <div class="grab"></div>
+    <div class="sg-app"><div class="dl">V</div><div><b>Vivamarket</b><small>vivamarket.com</small></div></div>
+    <div class="sg-t" id="sgT"></div>
+    <div class="sg-rows" id="sgRows"></div>
+    <div class="sg-btns"><button id="sgNo">Отклонить</button><button id="sgOk" class="ok">Подтвердить</button></div>
+  </div>
+
+  <!-- Поздравление -->
+  <div id="bday" class="overlay hidden">
+    <div class="card">
+      <div class="big">🎂</div>
+      <h1>С днём рождения, Вова!</h1>
+      <p class="sub" id="bdaySub"></p>
+      <p class="msg">
+        <!-- ТУТ ТВОЁ ПОЗДРАВЛЕНИЕ -->
+        Желаю, чтобы все твои рынки закрывались в «Yes», графики летели только вверх,
+        а жизнь звучала как все четыре сезона Вивальди сразу. 🎻🚀
+      </p>
+      <button class="cta" id="bdayGo">Забрать выигрыш в кошелёк</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+</div>
+<canvas id="confetti"></canvas>
+<script src="app.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
